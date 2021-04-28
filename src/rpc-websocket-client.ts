@@ -181,7 +181,11 @@ export class RpcWebSocketClient {
                 }
 
                 // resolve awaiting function
-                this.idAwaiter[data.id](data.error);
+		if(this.idAwaiter[data.id]){
+                    this.idAwaiter[data.id](data.error);
+		} else {
+		    console.error('no awaiting function found for error response', data);
+		}
             }
         };
     }
